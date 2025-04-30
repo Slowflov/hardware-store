@@ -3,7 +3,7 @@ import NavPanel from "./NavPanel";
 import MainSections from "./MainSections.jsx";
 import ShowcaseBanner from "./Banner/ShowcaseBanner.jsx";
 import PopularCategories from "../categories/PopularCategories";
-import PromoProducts from "../Sales/PromoProducts";
+import PromoProducts from "../sales/PromoProducts";
 import GlobalStroy from "../about/GlobalStroy";
 import GlobalStroyInfo from "../about/GlobalStroyInfo";
 import ContactSection from "../contact/ContactSection";

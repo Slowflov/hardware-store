@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import ProductCard from "../card/ProductCard"; // Импортируем новый компонент
+import ProductCard from "../card/ProductCard";
 
 import promo1 from "../../assets/images/Promo/Promo_1.png";
 import promo2 from "../../assets/images/Promo/Promo_2.png";
