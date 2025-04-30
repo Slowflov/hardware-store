@@ -11,7 +11,7 @@ import Footer from "../footer/Footer";
 import CatalogList from "../catalog/CatalogList";
 import Promo from "../sales/PromoPage";
 import RetExEnch from "../pages/ReturnExchange.jsx";
-import LocationInfo from "../Contact/LocationInfo.jsx";
+import LocationInfo from "../contact/LocationInfo.jsx";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 
 import Paint from "../catalog/paint/PaintPage.jsx";
