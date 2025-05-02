@@ -22,7 +22,6 @@ const productQueryResolvers = {
 
         // Применяем фильтры
         const query = applyFilters(category, priceRange, typeFilter);
-        console.log("Query:", query);
         const sortOptions = getSortOptions(sortBy);
 
         const totalProducts = await Product.countDocuments(query);

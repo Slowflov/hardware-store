@@ -1,12 +1,10 @@
 import React from "react";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
-  console.log("Pagination rendered with:", { totalPages, currentPage });
 
   const handlePageClick = (e, page) => {
-    e.preventDefault(); // Предотвращаем перезагрузку страницы
-    console.log("Page button clicked:", page);
-    onPageChange(page); // Вызываем функцию изменения страницы
+    e.preventDefault();
+    onPageChange(page);
   };
 
   return (

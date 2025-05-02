@@ -13,6 +13,7 @@ import Promo from "../sales/PromoPage";
 import RetExEnch from "../pages/ReturnExchange.jsx";
 import LocationInfo from "../contact/LocationInfo.jsx";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
+import ProductPage from "../card/ProductPage";
 
 import Paint from "../catalog/paint/PaintPage.jsx";
 
@@ -28,6 +29,7 @@ const Header = () => {
         <Route path="/RetExEnch" element={<RetExEnch />} />
         <Route path="/LocationInfo" element={<LocationInfo />} />
         <Route path="/PayAndDel" element={<PaymentAndDelivery />} />
+        <Route path="/product/:id" element={<ProductPage />} />
 
         <Route path="/category/paint" element={<Paint />} />
           <Route

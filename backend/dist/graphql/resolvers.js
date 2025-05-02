@@ -23,7 +23,6 @@ const productQueryResolvers = {
                 const { priceRange, typeFilter } = filters || {};
                 // Применяем фильтры
                 const query = (0, applyFilters_1.applyFilters)(category, priceRange, typeFilter);
-                console.log("Query:", query);
                 const sortOptions = (0, SortProducts_1.getSortOptions)(sortBy);
                 const totalProducts = yield Product_1.default.countDocuments(query);
                 const totalPages = Math.ceil(totalProducts / pageSize);

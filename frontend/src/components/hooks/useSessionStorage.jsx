@@ -1,23 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const isBrowser = typeof window !== "undefined";
 
 const useSessionStorage = (key, initialValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
+  const getStoredValue = () => {
+    if (!isBrowser) return initialValue;
+
     try {
       const item = sessionStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      return item !== null ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.error(`Error reading sessionStorage key "${key}":`, error);
+      console.warn(`Error reading sessionStorage key "${key}":`, error);
       return initialValue;
     }
-  });
+  };
+
+  const [storedValue, setStoredValue] = useState(getStoredValue);
+
+  useEffect(() => {
+    if (!isBrowser) return;
+    try {
+      sessionStorage.setItem(key, JSON.stringify(storedValue));
+    } catch (error) {
+      console.warn(`Error setting sessionStorage key "${key}":`, error);
+    }
+  }, [key, storedValue]);
 
   const setValue = (value) => {
     try {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
-      sessionStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.error(`Error setting sessionStorage key "${key}":`, error);
+      console.warn(`Error updating sessionStorage key "${key}":`, error);
     }
   };
 
