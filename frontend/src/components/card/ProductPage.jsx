@@ -1,45 +1,49 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
+import ProductDetails from "./ProductDetails";
 
-// GraphQL-запрос для получения данных о товаре
 const GET_PRODUCT_BY_ID = gql`
   query GetProductById($id: ID!) {
     getProductById(id: $id) {
-      id
       name
       img
+      code
+      category
+      quantity
+      customPrice
+      availability
+      inventoryCount
+      oldPrice
+      newPrice
+      attributes {
+        name
+        value
+      }
+      descriptionBlocks {
+        title
+        content
+      }
+      details {
+        name
+        value
+      }
     }
   }
 `;
 
 const ProductPage = () => {
-  const { id } = useParams(); // Получаем id из параметров маршрута
-
-  // Выполняем GraphQL-запрос
+  const { id } = useParams();
   const { data, loading, error } = useQuery(GET_PRODUCT_BY_ID, {
     variables: { id },
+    skip: !id,
   });
 
-  if (loading) return <div>Загрузка товара...</div>;
-  if (error) return <div>Ошибка: {error.message}</div>;
+  if (loading) return <p>Загрузка...</p>;
+  if (error) return <p>Ошибка: {error.message}</p>;
+  if (!data?.getProductById) return <p>Товар не найден.</p>;
 
-  const product = data?.getProductById;
-
-  if (!product) return <div>Товар не найден.</div>;
-
-  return (
-    <div className="max-w-5xl mx-auto p-4">
-      <div className="w-full flex justify-center">
-        <img
-          src={`/images/paint/${product.img}`} // Путь к изображению
-          alt={product.name}
-          className="max-h-96 object-contain"
-        />
-      </div>
-      <h1 className="text-2xl font-bold text-center mt-4">{product.name}</h1>
-    </div>
-  );
+  return <ProductDetails product={data.getProductById} />;
 };
 
 export default ProductPage;

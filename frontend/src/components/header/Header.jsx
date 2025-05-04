@@ -16,6 +16,8 @@ import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ProductPage from "../card/ProductPage";
 
 import Paint from "../catalog/paint/PaintPage.jsx";
+import OsbPage from "../catalog/osb/OsbPage.jsx";
+import Profile from "../catalog/profil/ProfilePage";
 
 const Header = () => {
   return (
@@ -29,9 +31,13 @@ const Header = () => {
         <Route path="/RetExEnch" element={<RetExEnch />} />
         <Route path="/LocationInfo" element={<LocationInfo />} />
         <Route path="/PayAndDel" element={<PaymentAndDelivery />} />
-        <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/category/:category/:id" element={<ProductPage />} />
 
         <Route path="/category/paint" element={<Paint />} />
+        <Route path="/category/osb" element={<OsbPage />} />
+        <Route path="/category/profil" element={<Profile />} />
+
+          {/* Add other category routes here */}
           <Route
             path="/*"
             element={

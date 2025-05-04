@@ -3,6 +3,7 @@ import ProductCard from "../card/ProductCard";
 import FilterPanel from "../card/filters/FilterPanel";
 import SortProducts from "../card/filters/SortProducts";
 import Pagination from "../card/Pagination";
+import Breadcrumb from "../Breadcrumb";
 
 const PageLayout = ({
   title,
@@ -22,7 +23,7 @@ const PageLayout = ({
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    if (data?.getProducts) {
+    if (data?.getProducts?.products) {
       setFilteredProducts(data.getProducts.products);
     }
   }, [data]);
@@ -60,10 +61,13 @@ const PageLayout = ({
 
   return (
     <div className="max-w-[1400px] mx-auto p-4">
-      <nav className="text-gray-600 text-sm mb-4">
-        <a href="/" className="hover:underline">Главная</a> <span> » </span>
-        <span className="text-gray-800 font-semibold">{title}</span>
-      </nav>
+      <Breadcrumb
+        paths={[
+          { label: "Главная", link: "/" },
+          { label: "Каталог", link: "/catalog" },
+          { label: title },
+        ]}
+      />
 
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl sm:text-4xl font-bold text-black">{title}</h1>
@@ -86,7 +90,19 @@ const PageLayout = ({
             </div>
           ) : (
             filteredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} img={`/images/${category}/${product.img}`} />
+              <ProductCard
+                key={product.id}
+                img={`/images/${category}/${product.img}`} // Проверяем путь
+                name={product.name}
+                oldPrice={product.oldPrice}
+                newPrice={product.newPrice}
+                availability={product.availability}
+                code={product.code}
+                quantity={product.quantity}
+                customPrice={product.customPrice}
+                productId={product.id} // Передаем ID
+                category={category} // Передаем категорию
+              />
             ))
           )}
         </div>

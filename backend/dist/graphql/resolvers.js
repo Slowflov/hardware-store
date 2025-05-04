@@ -19,9 +19,7 @@ const productQueryResolvers = {
     Query: {
         getProducts: (_1, _a) => __awaiter(void 0, [_1, _a], void 0, function* (_, { category, sortBy, page = 1, pageSize = 9, filters }) {
             try {
-                // Извлекаем priceRange и typeFilter из filters
                 const { priceRange, typeFilter } = filters || {};
-                // Применяем фильтры
                 const query = (0, applyFilters_1.applyFilters)(category, priceRange, typeFilter);
                 const sortOptions = (0, SortProducts_1.getSortOptions)(sortBy);
                 const totalProducts = yield Product_1.default.countDocuments(query);
@@ -41,8 +39,12 @@ const productQueryResolvers = {
                         availability: product.availability,
                         code: product.code,
                         quantity: product.quantity,
+                        inventoryCount: product.inventoryCount,
                         customPrice: product.customPrice,
                         type: product.type,
+                        attributes: product.attributes,
+                        descriptionBlocks: product.descriptionBlocks,
+                        details: product.details, // Возвращаем details
                     })),
                     totalPages,
                 };
@@ -50,6 +52,35 @@ const productQueryResolvers = {
             catch (error) {
                 console.error(error);
                 throw new Error("Error fetching products");
+            }
+        }),
+        getProductById: (_1, _a) => __awaiter(void 0, [_1, _a], void 0, function* (_, { id }) {
+            try {
+                const product = yield Product_1.default.findById(id);
+                if (!product) {
+                    throw new Error('Товар не найден');
+                }
+                return {
+                    id: product._id.toString(),
+                    name: product.name,
+                    img: product.img,
+                    oldPrice: product.oldPrice,
+                    newPrice: product.newPrice,
+                    availability: product.availability,
+                    code: product.code,
+                    quantity: product.quantity,
+                    inventoryCount: product.inventoryCount,
+                    customPrice: product.customPrice,
+                    type: product.type,
+                    category: product.category,
+                    attributes: product.attributes,
+                    descriptionBlocks: product.descriptionBlocks,
+                    details: product.details, // Возвращаем details
+                };
+            }
+            catch (error) {
+                console.error('Ошибка при получении товара:', error.message);
+                throw new Error('Ошибка получения товара');
             }
         }),
     },

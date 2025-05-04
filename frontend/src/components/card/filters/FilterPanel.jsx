@@ -1,77 +1,33 @@
 import React, { useEffect } from "react";
 import PriceRangeFilter from "./PriceRangeFilter";
 import TypeFilter from "./TypeFilter";
+import FilterButton from "./FilterButton";
 import { priceRanges, typeFilters } from "../filters/filterData";
 import useSessionStorage from "../../hooks/useSessionStorage";
+import useTypeCounts from "../../hooks/getAllProductsForCounts";
+import { getInitialFilters } from "../filters/filterUtils";
+import useFilterHandlers from "../../hooks/useFilterHandlers";
 
 const FilterPanel = ({ category, products, onFilterChange }) => {
   const defaultPrice = priceRanges[category] || [0, 10000];
-
   const [filters, setFilters] = useSessionStorage("filters", {
     price: defaultPrice,
     typeFilter: [],
   });
 
-  // Обновляем фильтры при изменении категории
+  const typeCounts = useTypeCounts(category);
+  const { handlePriceChange, handleTypeFilterChange, handleFilterClick } =
+    useFilterHandlers({ filters, setFilters, onFilterChange });
+
   useEffect(() => {
-    const stored = JSON.parse(sessionStorage.getItem("filters")) || {};
-
-    const newPrice =
-      Array.isArray(stored?.price) && stored.price.length === 2
-        ? stored.price
-        : priceRanges[category] || [0, 10000];
-    const newTypeFilter = Array.isArray(stored?.typeFilter)
-      ? stored.typeFilter
-      : [];
-
-    // Проверяем, изменились ли фильтры
+    const { price, typeFilter } = getInitialFilters(defaultPrice);
     if (
-      JSON.stringify(filters.price) !== JSON.stringify(newPrice) ||
-      JSON.stringify(filters.typeFilter) !== JSON.stringify(newTypeFilter)
+      JSON.stringify(filters.price) !== JSON.stringify(price) ||
+      JSON.stringify(filters.typeFilter) !== JSON.stringify(typeFilter)
     ) {
-      setFilters({
-        price: newPrice,
-        typeFilter: newTypeFilter,
-      });
+      setFilters({ price, typeFilter });
     }
-  }, [category, filters, setFilters]);
-
-  const typeCounts = products.reduce((acc, product) => {
-    const rawType = product?.type;
-    if (typeof rawType === "string") {
-      const productType = rawType.trim().toLowerCase();
-      acc[productType] = (acc[productType] || 0) + 1;
-    }
-    return acc;
-  }, {});
-
-  const handlePriceChange = (value) => {
-    setFilters((prev) => ({
-      ...prev,
-      price: value,
-    }));
-  };
-
-  const handleTypeFilterChange = (e) => {
-    const selectedType = e.target.value;
-    setFilters((prev) => {
-      const newTypeFilter = prev.typeFilter.includes(selectedType)
-        ? prev.typeFilter.filter((type) => type !== selectedType)
-        : [...prev.typeFilter, selectedType];
-      return {
-        ...prev,
-        typeFilter: newTypeFilter,
-      };
-    });
-  };
-
-  const handleFilterClick = () => {
-    sessionStorage.setItem("filters", JSON.stringify(filters)); // Сохраняем фильтры
-    onFilterChange([
-      { key: "priceRange", value: filters.price },
-      { key: "typeFilter", value: filters.typeFilter },
-    ]);
-  };
+  }, [category]);
 
   const availableTypesForCategory = typeFilters[category];
 
@@ -86,17 +42,11 @@ const FilterPanel = ({ category, products, onFilterChange }) => {
         onPriceChange={handlePriceChange}
       />
 
-      <button
-        type="button"
-        onClick={handleFilterClick}
-        className="w-full bg-yellow-500 hover:bg-yellow-400 text-white py-2 px-4 rounded-md cursor-pointer mt-4"
-      >
-        Фильтровать
-      </button>
+      <FilterButton onClick={handleFilterClick} />
 
       <div className="border-t border-black mt-4"></div>
 
-      {availableTypesForCategory && availableTypesForCategory.length > 0 && (
+      {availableTypesForCategory?.length > 0 && (
         <TypeFilter
           availableTypes={availableTypesForCategory}
           typeCounts={typeCounts}
@@ -109,3 +59,4 @@ const FilterPanel = ({ category, products, onFilterChange }) => {
 };
 
 export default FilterPanel;
+

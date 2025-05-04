@@ -24,8 +24,8 @@ const GET_PRODUCTS = gql`
   }
 `;
 
-const PaintPage = () => {
-  const category = "paint";
+const OsbPage = () => {
+  const category = "osb";
   const [currentPage, setCurrentPage] = useSessionStorage("currentPage", 1);
   const [sortType, setSortType] = useSessionStorage("sortType", "latest");
   const [filters, setFilters] = useSessionStorage("filters", {
@@ -46,7 +46,7 @@ const PaintPage = () => {
 
   return (
     <PageLayout
-      title="Краски"
+      title="ОСБ плиты"
       category={category}
       data={data}
       loading={loading}
@@ -63,4 +63,4 @@ const PaintPage = () => {
   );
 };
 
-export default PaintPage;
+export default OsbPage;

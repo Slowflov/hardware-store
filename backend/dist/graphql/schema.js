@@ -2,6 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const apollo_server_express_1 = require("apollo-server-express");
 const typeDefs = (0, apollo_server_express_1.gql) `
+  type Attribute {
+    name: String
+    value: String
+  }
+
+  type DescriptionBlock {
+    title: String
+    content: String
+  }
+
+  type Detail {
+    name: String
+    value: String
+  }
+
+  # Добавляем Input type для Details
+  input DetailInput {
+    name: String
+    value: String
+  }
+
   type Product {
     id: ID!
     img: String
@@ -14,6 +35,10 @@ const typeDefs = (0, apollo_server_express_1.gql) `
     customPrice: Float
     type: String
     category: String
+    inventoryCount: Int
+    attributes: [Attribute]
+    descriptionBlocks: [DescriptionBlock]
+    details: [Detail]
   }
 
   type ProductList {
@@ -34,6 +59,8 @@ const typeDefs = (0, apollo_server_express_1.gql) `
       pageSize: Int,
       filters: FilterInput
     ): ProductList
+
+    getProductById(id: ID!): Product
   }
 
   type Mutation {
@@ -46,8 +73,10 @@ const typeDefs = (0, apollo_server_express_1.gql) `
       availability: String
       code: String
       quantity: Int
+      inventoryCount: Int
       customPrice: Float
       type: String
+      details: [DetailInput]
     ): Product
   }
 `;

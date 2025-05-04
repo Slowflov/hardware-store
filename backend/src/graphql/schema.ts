@@ -1,6 +1,27 @@
 import { gql } from "apollo-server-express";
 
 const typeDefs = gql`
+  type Attribute {
+    name: String
+    value: String
+  }
+
+  type DescriptionBlock {
+    title: String
+    content: String
+  }
+
+  type Detail {
+    name: String
+    value: String
+  }
+
+  # Добавляем Input type для Details
+  input DetailInput {
+    name: String
+    value: String
+  }
+
   type Product {
     id: ID!
     img: String
@@ -13,6 +34,10 @@ const typeDefs = gql`
     customPrice: Float
     type: String
     category: String
+    inventoryCount: Int
+    attributes: [Attribute]
+    descriptionBlocks: [DescriptionBlock]
+    details: [Detail]
   }
 
   type ProductList {
@@ -33,6 +58,8 @@ const typeDefs = gql`
       pageSize: Int,
       filters: FilterInput
     ): ProductList
+
+    getProductById(id: ID!): Product
   }
 
   type Mutation {
@@ -45,8 +72,10 @@ const typeDefs = gql`
       availability: String
       code: String
       quantity: Int
+      inventoryCount: Int
       customPrice: Float
       type: String
+      details: [DetailInput]
     ): Product
   }
 `;

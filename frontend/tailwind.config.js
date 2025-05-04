@@ -32,6 +32,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        '.line-through-thin': {
+          textDecorationLine: 'line-through',
+          textDecorationThickness: '1px',
+          textDecorationColor: 'black',
+        },
+      })
+    }
+  ],
 }
-

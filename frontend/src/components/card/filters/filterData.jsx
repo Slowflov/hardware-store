@@ -1,7 +1,7 @@
 // src/data/filterData.js
 
 export const priceRanges = {
-    osb: [0, 500],
+    osb: [0, 1000],
     profile: [0, 400],
     cement: [0, 200],
     putty: [0, 1500],

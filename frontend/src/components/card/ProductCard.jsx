@@ -12,6 +12,7 @@ const ProductCard = ({
   quantity,
   customPrice,
   productId,
+  category,
   isEmpty,
 }) => {
   if (isEmpty) {
@@ -24,7 +25,7 @@ const ProductCard = ({
 
   return (
     <Link
-      to={`/product/${productId}`}
+      to={`/category/${category}/${productId}`}
       className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col justify-between"
     >
       <img src={img} alt={name} className="w-full h-60 object-cover" />
@@ -34,7 +35,11 @@ const ProductCard = ({
 
         <div className="text-xl font-bold mb-2">{name}</div>
 
-        <div className="mt-auto mb-2 text-sm text-gray-500">
+        <div
+          className={`mt-auto mb-2 text-sm text-gray-500 ${
+            quantity && customPrice ? "" : "invisible"
+          }`}
+        >
           от {quantity} шт —
           <span className="text-lg text-red-600 font-bold pl-1">{customPrice} грн</span>
         </div>
@@ -55,10 +60,10 @@ const ProductCard = ({
       </div>
 
       <div className="mt-auto">
-        <button className="w-full bg-yellow-500 hover:bg-yellow-400 text-white py-4 px-4 flex items-center justify-center gap-2">
+        <div className="w-full bg-yellow-500 hover:bg-yellow-400 text-white py-4 px-4 flex items-center justify-center gap-2">
           <ShoppingCart className="w-5 h-5" />
           <span>Подробнее</span>
-        </button>
+        </div>
       </div>
     </Link>
   );
