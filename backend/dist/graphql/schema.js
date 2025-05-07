@@ -10,17 +10,20 @@ const typeDefs = (0, apollo_server_express_1.gql) `
   type DescriptionBlock {
     title: String
     content: String
+    horizontal: Boolean # Добавлено поле horizontal
   }
 
   type Detail {
     name: String
     value: String
+    horizontal: Boolean # Добавлено поле horizontal
   }
 
-  # Добавляем Input type для Details
+  # Добавляем Input type для Details с horizontal
   input DetailInput {
     name: String
     value: String
+    horizontal: Boolean # Добавлено поле horizontal
   }
 
   type Product {

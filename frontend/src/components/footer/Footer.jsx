@@ -4,9 +4,7 @@ import logo from './../../assets/images/logo/repair_logo.png';
 const Footer = () => {
   return (
     <footer className="flex items-center bg-[#415a77] px-8 py-16">
-      {/* Обертка для логотипа и навигации */}
-      <div className="flex items-center space-x-12">
-        {/* Логотип и название */}
+      <div className="flex items-center space-x-12 ">
         <Link to="/" className="flex items-center cursor-pointer">
           <img
             src={logo}
@@ -23,7 +21,6 @@ const Footer = () => {
           </div>
         </Link>
 
-        {/* Навигация (теперь рядом с логотипом) */}
         <nav>
           <ul className="flex space-x-8">
             <li>

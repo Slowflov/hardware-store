@@ -2,6 +2,8 @@ import React from "react";
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const formatPrice = (price) => price.toString().replace('.', ',');
+
 const ProductCard = ({
   img,
   name,
@@ -40,14 +42,20 @@ const ProductCard = ({
             quantity && customPrice ? "" : "invisible"
           }`}
         >
-          от {quantity} шт —
-          <span className="text-lg text-red-600 font-bold pl-1">{customPrice} грн</span>
+          от {quantity} шт —{" "}
+          <span className="text-lg text-red-600 font-bold pl-1">
+            {customPrice && formatPrice(customPrice)} грн
+          </span>
         </div>
 
         <div className="flex justify-between items-center">
           <div>
-            <div className="text-xl text-gray-500 line-through">{oldPrice} грн</div>
-            <div className="text-3xl font-semibold text-red-500">{newPrice} грн</div>
+            <div className="text-xl text-gray-500 line-through">
+              {oldPrice && formatPrice(oldPrice)} грн
+            </div>
+            <div className="text-3xl font-semibold text-red-500">
+              {newPrice && formatPrice(newPrice)} грн
+            </div>
           </div>
           <div
             className={`text-lg text-white px-3 py-2 rounded-md whitespace-nowrap ${

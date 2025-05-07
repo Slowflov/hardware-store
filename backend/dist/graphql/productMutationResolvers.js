@@ -21,6 +21,13 @@ const productMutationResolvers = {
                 if (!name || !img || !category) {
                     throw new Error('All fields are required: name, img, category');
                 }
+                // Применение значения по умолчанию для horizontal, если оно не передано
+                if (args.descriptionBlocks) {
+                    args.descriptionBlocks = args.descriptionBlocks.map(block => {
+                        var _a;
+                        return (Object.assign(Object.assign({}, block), { horizontal: (_a = block.horizontal) !== null && _a !== void 0 ? _a : false }));
+                    });
+                }
                 const newProduct = new Product_1.default(args);
                 yield newProduct.save();
                 return {

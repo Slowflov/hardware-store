@@ -18,6 +18,9 @@ import ProductPage from "../card/ProductPage";
 import Paint from "../catalog/paint/PaintPage.jsx";
 import OsbPage from "../catalog/osb/OsbPage.jsx";
 import Profile from "../catalog/profil/ProfilePage";
+import Primer from "../catalog/primer/PrimerPage";
+import Cement from "../catalog/cement/CementPage.jsx";
+
 
 const Header = () => {
   return (
@@ -36,8 +39,9 @@ const Header = () => {
         <Route path="/category/paint" element={<Paint />} />
         <Route path="/category/osb" element={<OsbPage />} />
         <Route path="/category/profil" element={<Profile />} />
+        <Route path="/category/primer" element={<Primer />} />
+        <Route path="/category/cement" element={<Cement />} />
 
-          {/* Add other category routes here */}
           <Route
             path="/*"
             element={

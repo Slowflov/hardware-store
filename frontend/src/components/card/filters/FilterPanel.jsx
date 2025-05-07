@@ -1,33 +1,95 @@
 import React, { useEffect } from "react";
 import PriceRangeFilter from "./PriceRangeFilter";
 import TypeFilter from "./TypeFilter";
-import FilterButton from "./FilterButton";
 import { priceRanges, typeFilters } from "../filters/filterData";
 import useSessionStorage from "../../hooks/useSessionStorage";
-import useTypeCounts from "../../hooks/getAllProductsForCounts";
-import { getInitialFilters } from "../filters/filterUtils";
-import useFilterHandlers from "../../hooks/useFilterHandlers";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_ALL_PRODUCTS_FOR_COUNTS = gql`
+  query GetAllProductsForCounts($category: String) {
+    getProducts(category: $category, pageSize: 1000) {
+      products {
+        type
+      }
+    }
+  }
+`;
 
 const FilterPanel = ({ category, products, onFilterChange }) => {
   const defaultPrice = priceRanges[category] || [0, 10000];
-  const [filters, setFilters] = useSessionStorage("filters", {
+  const storageKey = `filters-${category}`;
+
+  const [filters, setFilters] = useSessionStorage(storageKey, {
     price: defaultPrice,
     typeFilter: [],
   });
 
-  const typeCounts = useTypeCounts(category);
-  const { handlePriceChange, handleTypeFilterChange, handleFilterClick } =
-    useFilterHandlers({ filters, setFilters, onFilterChange });
+  const { data: allData } = useQuery(GET_ALL_PRODUCTS_FOR_COUNTS, {
+    variables: { category },
+    fetchPolicy: "cache-first",
+  });
+
+  const allProducts = allData?.getProducts?.products || [];
+
+  const typeCounts = allProducts.reduce((acc, product) => {
+    const rawType = product?.type;
+    if (typeof rawType === "string") {
+      const productType = rawType.trim().toLowerCase();
+      acc[productType] = (acc[productType] || 0) + 1;
+    }
+    return acc;
+  }, {});
 
   useEffect(() => {
-    const { price, typeFilter } = getInitialFilters(defaultPrice);
-    if (
-      JSON.stringify(filters.price) !== JSON.stringify(price) ||
-      JSON.stringify(filters.typeFilter) !== JSON.stringify(typeFilter)
-    ) {
-      setFilters({ price, typeFilter });
-    }
+    // Сброс фильтров при смене категории (без применения)
+    const storedFilters = JSON.parse(sessionStorage.getItem(storageKey)) || {
+      price: defaultPrice,
+      typeFilter: [],
+    };
+    setFilters(storedFilters);
   }, [category]);
+
+  const handlePriceChange = (value) => {
+    setFilters((prev) => ({
+      ...prev,
+      price: value,
+    }));
+  };
+
+  const handleTypeFilterChange = (e) => {
+    const selectedType = e.target.value;
+
+    setFilters((prev) => {
+      const newTypeFilter = prev.typeFilter.includes(selectedType)
+        ? prev.typeFilter.filter((type) => type !== selectedType)
+        : [...prev.typeFilter, selectedType];
+
+      const updatedFilters = {
+        ...prev,
+        typeFilter: newTypeFilter,
+      };
+
+      sessionStorage.setItem(storageKey, JSON.stringify(updatedFilters));
+
+      // ✅ Только по выбору типа сразу вызываем фильтрацию
+      onFilterChange([
+        { key: "priceRange", value: updatedFilters.price },
+        { key: "typeFilter", value: updatedFilters.typeFilter },
+      ]);
+
+      return updatedFilters;
+    });
+  };
+
+  const handleFilterClick = () => {
+    sessionStorage.setItem(storageKey, JSON.stringify(filters));
+
+    // ✅ Фильтрация по цене вызывается только здесь
+    onFilterChange([
+      { key: "priceRange", value: filters.price },
+      { key: "typeFilter", value: filters.typeFilter },
+    ]);
+  };
 
   const availableTypesForCategory = typeFilters[category];
 
@@ -42,11 +104,17 @@ const FilterPanel = ({ category, products, onFilterChange }) => {
         onPriceChange={handlePriceChange}
       />
 
-      <FilterButton onClick={handleFilterClick} />
+      <button
+        type="button"
+        onClick={handleFilterClick}
+        className="w-full bg-yellow-500 hover:bg-yellow-400 text-white py-2 px-4 rounded-md cursor-pointer mt-4"
+      >
+        Фильтровать
+      </button>
 
       <div className="border-t border-black mt-4"></div>
 
-      {availableTypesForCategory?.length > 0 && (
+      {availableTypesForCategory && availableTypesForCategory.length > 0 && (
         <TypeFilter
           availableTypes={availableTypesForCategory}
           typeCounts={typeCounts}
@@ -59,4 +127,3 @@ const FilterPanel = ({ category, products, onFilterChange }) => {
 };
 
 export default FilterPanel;
-

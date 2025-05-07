@@ -24,37 +24,51 @@ const productQueryResolvers = {
                 const sortOptions = (0, SortProducts_1.getSortOptions)(sortBy);
                 const totalProducts = yield Product_1.default.countDocuments(query);
                 const totalPages = Math.ceil(totalProducts / pageSize);
+                // Ensure page is within valid range
+                const validPage = Math.max(1, Math.min(page, totalPages));
                 const products = yield Product_1.default.find(query)
                     .sort(sortOptions)
-                    .skip((page - 1) * pageSize)
+                    .skip((validPage - 1) * pageSize)
                     .limit(pageSize);
                 return {
-                    products: products.map(product => ({
-                        id: product._id.toString(),
-                        name: product.name,
-                        img: product.img,
-                        category: product.category,
-                        oldPrice: product.oldPrice,
-                        newPrice: product.newPrice,
-                        availability: product.availability,
-                        code: product.code,
-                        quantity: product.quantity,
-                        inventoryCount: product.inventoryCount,
-                        customPrice: product.customPrice,
-                        type: product.type,
-                        attributes: product.attributes,
-                        descriptionBlocks: product.descriptionBlocks,
-                        details: product.details, // Возвращаем details
-                    })),
+                    products: products.map(product => {
+                        var _a;
+                        return ({
+                            id: product._id.toString(),
+                            name: product.name,
+                            img: product.img,
+                            category: product.category,
+                            oldPrice: product.oldPrice,
+                            newPrice: product.newPrice,
+                            availability: product.availability,
+                            code: product.code,
+                            quantity: product.quantity,
+                            inventoryCount: product.inventoryCount,
+                            customPrice: product.customPrice,
+                            type: product.type,
+                            attributes: product.attributes,
+                            // Добавляем поддержку опционального поля horizontal в descriptionBlocks
+                            descriptionBlocks: (_a = product.descriptionBlocks) === null || _a === void 0 ? void 0 : _a.map(block => {
+                                var _a;
+                                return ({
+                                    title: block.title,
+                                    content: block.content,
+                                    horizontal: (_a = block.horizontal) !== null && _a !== void 0 ? _a : false, // Если horizontal нет, то устанавливаем false
+                                });
+                            }),
+                            details: product.details,
+                        });
+                    }),
                     totalPages,
                 };
             }
             catch (error) {
-                console.error(error);
+                console.error('Error fetching products:', error);
                 throw new Error("Error fetching products");
             }
         }),
         getProductById: (_1, _a) => __awaiter(void 0, [_1, _a], void 0, function* (_, { id }) {
+            var _b;
             try {
                 const product = yield Product_1.default.findById(id);
                 if (!product) {
@@ -74,8 +88,16 @@ const productQueryResolvers = {
                     type: product.type,
                     category: product.category,
                     attributes: product.attributes,
-                    descriptionBlocks: product.descriptionBlocks,
-                    details: product.details, // Возвращаем details
+                    // Добавляем поддержку опционального поля horizontal в descriptionBlocks
+                    descriptionBlocks: (_b = product.descriptionBlocks) === null || _b === void 0 ? void 0 : _b.map(block => {
+                        var _a;
+                        return ({
+                            title: block.title,
+                            content: block.content,
+                            horizontal: (_a = block.horizontal) !== null && _a !== void 0 ? _a : false, // Если horizontal нет, то устанавливаем false
+                        });
+                    }),
+                    details: product.details,
                 };
             }
             catch (error) {

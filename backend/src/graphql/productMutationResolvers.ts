@@ -13,8 +13,8 @@ interface AddProductArgs {
   customPrice?: number;
   type?: string;
   attributes?: { name: string; value: string }[];
-  descriptionBlocks?: { title: string; content: string }[];
-  details?: { name: string; value: string }[]; // Добавлены аргументы для details
+  descriptionBlocks?: { title: string; content: string; horizontal?: boolean }[]; // Добавлен horizontal
+  details?: { name: string; value: string }[];
 }
 
 const productMutationResolvers = {
@@ -25,6 +25,14 @@ const productMutationResolvers = {
 
         if (!name || !img || !category) {
           throw new Error('All fields are required: name, img, category');
+        }
+
+        // Применение значения по умолчанию для horizontal, если оно не передано
+        if (args.descriptionBlocks) {
+          args.descriptionBlocks = args.descriptionBlocks.map(block => ({
+            ...block,
+            horizontal: block.horizontal ?? false, // Если horizontal нет, то устанавливаем false
+          }));
         }
 
         const newProduct = new Product(args);

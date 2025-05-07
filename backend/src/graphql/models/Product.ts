@@ -8,6 +8,7 @@ export interface Attribute {
 export interface DescriptionBlock {
   title: string;
   content: string;
+  horizontal?: boolean;  // Добавлено поле horizontal, оно опциональное
 }
 
 export interface Detail {
@@ -29,7 +30,7 @@ export interface ProductType extends Document {
   type?: string;
   attributes?: Attribute[];
   descriptionBlocks?: DescriptionBlock[];
-  details?: Detail[]; // Добавлено поле details
+  details?: Detail[];
 }
 
 const productSchema = new mongoose.Schema<ProductType>({
@@ -54,6 +55,7 @@ const productSchema = new mongoose.Schema<ProductType>({
     {
       title: String,
       content: String,
+      horizontal: { type: Boolean, default: false },  // Добавлено поле horizontal, с дефолтным значением false
     },
   ],
   details: [
@@ -61,7 +63,7 @@ const productSchema = new mongoose.Schema<ProductType>({
       name: String,
       value: String,
     },
-  ], // Добавлена схема для details
+  ],
 });
 
 const Product: Model<ProductType> =

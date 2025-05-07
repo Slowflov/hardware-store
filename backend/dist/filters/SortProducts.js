@@ -4,16 +4,19 @@ exports.getSortOptions = void 0;
 const getSortOptions = (sortBy) => {
     const sortOptions = {};
     if (sortBy === "price_asc") {
-        sortOptions.newPrice = 1; // Сортировка по цене по возрастанию
+        sortOptions.newPrice = 1;
     }
     else if (sortBy === "price_desc") {
-        sortOptions.newPrice = -1; // Сортировка по цене по убыванию
+        sortOptions.newPrice = -1;
     }
     else if (sortBy === "discount") {
-        return { discount: -1 }; // Сортировка по скидке
+        return {
+            customPrice: -1,
+            quantity: -1
+        };
     }
     else if (sortBy === "latest") {
-        sortOptions._id = -1; // Сортировка по новизне (например, по ID или времени добавления)
+        sortOptions._id = -1;
     }
     return sortOptions;
 };

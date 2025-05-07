@@ -24,9 +24,12 @@ const productQueryResolvers = {
         const totalProducts = await Product.countDocuments(query);
         const totalPages = Math.ceil(totalProducts / pageSize);
 
+        // Ensure page is within valid range
+        const validPage = Math.max(1, Math.min(page, totalPages));
+
         const products = await Product.find(query)
           .sort(sortOptions)
-          .skip((page - 1) * pageSize)
+          .skip((validPage - 1) * pageSize)
           .limit(pageSize);
 
         return {
@@ -44,13 +47,18 @@ const productQueryResolvers = {
             customPrice: product.customPrice,
             type: product.type,
             attributes: product.attributes,
-            descriptionBlocks: product.descriptionBlocks,
-            details: product.details,  // Возвращаем details
+            // Добавляем поддержку опционального поля horizontal в descriptionBlocks
+            descriptionBlocks: product.descriptionBlocks?.map(block => ({
+              title: block.title,
+              content: block.content,
+              horizontal: block.horizontal ?? false, // Если horizontal нет, то устанавливаем false
+            })),
+            details: product.details,
           })),
           totalPages,
         };
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching products:', error);
         throw new Error("Error fetching products");
       }
     },
@@ -77,8 +85,13 @@ const productQueryResolvers = {
           type: product.type,
           category: product.category,
           attributes: product.attributes,
-          descriptionBlocks: product.descriptionBlocks,
-          details: product.details,  // Возвращаем details
+          // Добавляем поддержку опционального поля horizontal в descriptionBlocks
+          descriptionBlocks: product.descriptionBlocks?.map(block => ({
+            title: block.title,
+            content: block.content,
+            horizontal: block.horizontal ?? false, // Если horizontal нет, то устанавливаем false
+          })),
+          details: product.details,
         };
       } catch (error) {
         console.error('Ошибка при получении товара:', error.message);

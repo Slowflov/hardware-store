@@ -26,6 +26,7 @@ const productSchema = new mongoose_1.default.Schema({
         {
             title: String,
             content: String,
+            horizontal: { type: Boolean, default: false }, // Добавлено поле horizontal, с дефолтным значением false
         },
     ],
     details: [
@@ -33,7 +34,7 @@ const productSchema = new mongoose_1.default.Schema({
             name: String,
             value: String,
         },
-    ], // Добавлена схема для details
+    ],
 });
 const Product = mongoose_1.default.models.Product || mongoose_1.default.model('Product', productSchema);
 exports.default = Product;

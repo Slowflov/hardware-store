@@ -29,31 +29,36 @@ const PageLayout = ({
   }, [data]);
 
   const handleFilterChange = (newFilters) => {
+    console.log("handleFilterChange called with:", newFilters);
     const price = newFilters.find((f) => f.key === "priceRange")?.value || priceRanges[category];
     const typeFilter = newFilters.find((f) => f.key === "typeFilter")?.value || [];
 
-    setFilters({ price, typeFilter });
-    setCurrentPage(1);
-    onRefetch({
-      category,
-      sortBy: sortType,
-      page: 1,
-      pageSize: 9,
-      priceRange: price,
-      typeFilter,
-    });
+    if (filters.price !== price || filters.typeFilter !== typeFilter) {
+      setFilters({ price, typeFilter });
+      setCurrentPage(1);
+      onRefetch({
+        category,
+        sortBy: sortType,
+        page: 1,
+        pageSize: 9,
+        priceRange: price,
+        typeFilter,
+      });
+    }
   };
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);
-    onRefetch({
-      category,
-      sortBy: sortType,
-      page,
-      pageSize: 9,
-      priceRange: filters.price,
-      typeFilter: filters.typeFilter,
-    });
+    if (page !== currentPage) {
+      setCurrentPage(page);
+      onRefetch({
+        category,
+        sortBy: sortType,
+        page,
+        pageSize: 9,
+        priceRange: filters.price,
+        typeFilter: filters.typeFilter,
+      });
+    }
   };
 
   if (loading) return <p className="text-center p-4">Загрузка...</p>;
@@ -92,7 +97,7 @@ const PageLayout = ({
             filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
-                img={`/images/${category}/${product.img}`} // Проверяем путь
+                img={`/images/${category}/${product.img}`}
                 name={product.name}
                 oldPrice={product.oldPrice}
                 newPrice={product.newPrice}
@@ -100,8 +105,8 @@ const PageLayout = ({
                 code={product.code}
                 quantity={product.quantity}
                 customPrice={product.customPrice}
-                productId={product.id} // Передаем ID
-                category={category} // Передаем категорию
+                productId={product.id}
+                category={category}
               />
             ))
           )}

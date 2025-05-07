@@ -23,6 +23,7 @@ const GET_PRODUCT_BY_ID = gql`
       descriptionBlocks {
         title
         content
+        horizontal
       }
       details {
         name
