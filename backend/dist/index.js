@@ -22,10 +22,7 @@ const PORT = process.env.PORT || 5000;
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
-        app.use((0, cors_1.default)({
-            origin: 'https://np-store.netlify.app',
-            credentials: true
-        }));
+        app.use((0, cors_1.default)());
         // Подключаемся к базе данных
         yield (0, db_1.default)();
         // Создание экземпляра ApolloServer

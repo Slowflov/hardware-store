@@ -10,10 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 async function startServer() {
   const app = express();
-app.use(cors({
-  origin: 'https://np-store.netlify.app',
-  credentials: true
-}));
+  app.use(cors());
 
   // Подключаемся к базе данных
   await connectDB();
