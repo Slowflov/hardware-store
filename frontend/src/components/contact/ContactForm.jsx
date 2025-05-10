@@ -20,14 +20,14 @@ const ContactForm = ({ isMobile }) => {
   const [isValid, setIsValid] = useState(true);
   const [isSent, setIsSent] = useState(false);
 
+  // Обработчик для ввода номера телефона
   const handlePhoneChange = (e) => {
     const raw = e.target.value.replace('+38', '');
     const formatted = formatPhoneNumber(raw);
-    setPhoneNumber(formatted);
-    setIsValid(true);
-    setIsSent(false);
+    setPhoneNumber(formatted); // обновляем только номер
   };
 
+  // Обработчик для отправки формы
   const handleSendRequest = () => {
     const rawPhoneNumber = phoneNumber.replace(/\D/g, '').slice(0, 12);
     if (rawPhoneNumber.length === 12) {
@@ -65,7 +65,6 @@ const ContactForm = ({ isMobile }) => {
             onChange={handlePhoneChange}
             placeholder="+38 (000) 000-00-00"
             className={`p-2 border rounded-md w-full text-black text-lg pt-4 pl-[20px] ${!isValid ? 'border-red-500' : ''}`}
-            autoFocus
           />
           {!isValid && (
             <p className="text-red-500 text-sm mt-2">Номер телефона должен содержать 12 цифр.</p>

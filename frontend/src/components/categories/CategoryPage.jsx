@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const CategoryPage = ({ index, categories, direction }) => {
   const pageCount = Math.ceil(categories.length / 6);
@@ -34,9 +35,9 @@ const CategoryPage = ({ index, categories, direction }) => {
           {categories
             .slice(index * 6, (index + 1) * 6)
             .map((cat) => (
-              <a
+              <Link
                 key={cat.id}
-                href={cat.link}
+                to={cat.link}
                 className="flex items-center bg-white p-1 sm:p-7 text-center rounded-lg shadow-md"
               >
                 <img
@@ -44,8 +45,10 @@ const CategoryPage = ({ index, categories, direction }) => {
                   alt={cat.name}
                   className="w-12 lg:w-40 md:w-20 sm:w-20 h-10 lg:h-20 md:h-16 sm:h-12 object-cover mr-1 lg:mr-10 md:mr-3 sm:mr-0 max-sm:mr-0"
                 />
-                <div className="font-bold text-xs lg:text-xl md:text-lg sm:text-sm">{cat.name}</div>
-              </a>
+                <div className="font-bold text-xs lg:text-xl md:text-lg sm:text-sm">
+                  {cat.name}
+                </div>
+              </Link>
             ))}
         </div>
       </motion.div>
