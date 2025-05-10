@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: hardware-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - fromDotEnv: true
