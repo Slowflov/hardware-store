@@ -26,9 +26,9 @@ const GET_PRODUCTS = gql`
 
 const PaintPage = () => {
   const category = "paint";
-  const [currentPage, setCurrentPage] = useSessionStorage("currentPage", 1);
-  const [sortType, setSortType] = useSessionStorage("sortType", "latest");
-  const [filters, setFilters] = useSessionStorage("filters", {
+  const [currentPage, setCurrentPage] = useSessionStorage(`${category}_currentPage`, 1);
+  const [sortType, setSortType] = useSessionStorage(`${category}_sortType`, "latest");
+  const [filters, setFilters] = useSessionStorage(`${category}_filters`, {
     price: priceRanges[category] || [0, 10000],
     typeFilter: [],
   });

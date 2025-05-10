@@ -41,7 +41,7 @@ const FilterPanel = ({ category, products, onFilterChange }) => {
   }, {});
 
   useEffect(() => {
-    // Сброс фильтров при смене категории (без применения)
+    console.log("Category changed, resetting filters");
     const storedFilters = JSON.parse(sessionStorage.getItem(storageKey)) || {
       price: defaultPrice,
       typeFilter: [],

@@ -53,7 +53,7 @@ const PromoProducts = () => {
 
   return (
     <div className="relative w-full mx-auto overflow-hidden px-5">
-      <h2 className="pt-10 pb-4 text-4xl font-bold text-red-500">Акционные товары</h2>
+      <h2 className="pt-10 pb-4 text-2xl md:text-4xl font-bold text-red-500">Акционные товары</h2>
 
       <button
         onClick={prev}

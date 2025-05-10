@@ -14,18 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
-// Загружаем переменные из .env
-dotenv_1.default.config();
+dotenv_1.default.config(); // Загружаем переменные окружения из .env файла
+const MONGO_URI = process.env.MONGO_URI || ''; // Читаем строку подключения из .env файла
+if (!MONGO_URI) {
+    console.error('MONGO_URI не задан в .env файле!');
+    process.exit(1); // Прерываем выполнение, если строка подключения не найдена
+}
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Используем строку подключения из .env
-        const dbURI = process.env.MONGO_URI;
-        yield mongoose_1.default.connect(dbURI); // Убираем параметры useNewUrlParser и useUnifiedTopology
-        console.log("MongoDB connected successfully");
+        // Просто передаем строку подключения без дополнительных параметров
+        yield mongoose_1.default.connect(MONGO_URI);
+        console.log('✅ Connected to MongoDB');
     }
     catch (error) {
-        console.error("Error connecting to MongoDB", error);
-        process.exit(1);
+        console.error('❌ Error connecting to MongoDB:', error);
+        process.exit(1); // Прерываем выполнение при ошибке подключения
     }
 });
 exports.default = connectDB;

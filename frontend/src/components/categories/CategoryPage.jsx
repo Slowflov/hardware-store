@@ -1,40 +1,55 @@
 import { motion } from "framer-motion";
 
-const CategoryPage = ({ index, categories }) => {
+const CategoryPage = ({ index, categories, direction }) => {
+  const pageCount = Math.ceil(categories.length / 6);
+
+  const variants = {
+    enter: (dir) => ({
+      x: dir === "left" ? "-100%" : "100%",
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (dir) => ({
+      x: dir === "left" ? "100%" : "-100%",
+      opacity: 0,
+    }),
+  };
+
   return (
-    <motion.div
-      className="flex"
-      animate={{ x: `-${index * 100}%` }} // Плавно сдвигаем слайдер
-      transition={{ duration: 0.1, ease: "linear" }}
-      style={{ display: "flex" }} // Flexbox для выстраивания блоков
-    >
-      {/* Рендерим 6 элементов за раз */}
-      {Array.from({ length: Math.ceil(categories.length / 6) }).map((_, pageIndex) => (
-        <div
-          key={pageIndex}
-          className="min-w-full grid grid-cols-3 gap-4 "
-          style={{
-            position: "relative", // Устанавливаем relative для точного позиционирования
-            visibility: pageIndex === index ? "visible" : "hidden", // Показываем только активную страницу
-          }}
-        >
-          {categories.slice(pageIndex * 6, (pageIndex + 1) * 6).map((cat) => (
-            <a
-              key={cat.id}
-              href={cat.link} // Добавляем ссылку на категорию
-              className="flex items-center bg-white p-7 text-center rounded-lg shadow-md"
-            >
-              <img
-                src={cat.img}
-                alt={cat.name}
-                className="w-40 h-20 object-cover mr-10"
-              />
-              <div className="font-bold text-xl">{cat.name}</div>
-            </a>
-          ))}
+    <div className="relative w-full h-auto">
+      <motion.div
+        className="flex w-full"
+        key={index}
+        custom={direction}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        variants={variants}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      >
+        <div className="w-full grid grid-cols-3 gap-4">
+          {categories
+            .slice(index * 6, (index + 1) * 6)
+            .map((cat) => (
+              <a
+                key={cat.id}
+                href={cat.link}
+                className="flex items-center bg-white p-1 sm:p-7 text-center rounded-lg shadow-md"
+              >
+                <img
+                  src={cat.img}
+                  alt={cat.name}
+                  className="w-12 lg:w-40 md:w-20 sm:w-20 h-10 lg:h-20 md:h-16 sm:h-12 object-cover mr-1 lg:mr-10 md:mr-3 sm:mr-0 max-sm:mr-0"
+                />
+                <div className="font-bold text-xs lg:text-xl md:text-lg sm:text-sm">{cat.name}</div>
+              </a>
+            ))}
         </div>
-      ))}
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

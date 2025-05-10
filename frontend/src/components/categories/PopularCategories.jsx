@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import CategoryPage from "./CategoryPage";
 import cat1 from "../../assets/images/category/cat_1.png";
@@ -32,36 +31,36 @@ const categories = [
 
 const PopularCategories = () => {
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState("right");
 
-  // Переход к следующей странице
-  const next = () => setIndex((prev) => (prev === Math.ceil(categories.length / 6) - 1 ? 0 : prev + 1));
+  const pageCount = Math.ceil(categories.length / 6);
 
-  // Переход к предыдущей странице
-  const prev = () => setIndex((prev) => (prev === 0 ? Math.ceil(categories.length / 6) - 1 : prev - 1));
+  const next = () => {
+    setDirection("right");
+    setIndex((prev) => (prev === pageCount - 1 ? 0 : prev + 1));
+  };
+
+  const prev = () => {
+    setDirection("left");
+    setIndex((prev) => (prev === 0 ? pageCount - 1 : prev - 1));
+  };
 
   return (
     <div className="relative w-full mx-auto overflow-hidden px-5">
-      {/* Заголовок */}
-      <h2 className="pt-10 pb-4 text-4xl font-bold text-black">Популярные категории</h2>
+      <h2 className="pt-10 pb-4 text-2xl md:text-4xl font-bold text-black">Популярные категории</h2>
 
-      {/* Кнопка Влево */}
       <button
         onClick={prev}
-        className="absolute cursor-pointer left-0 top-[242px] -translate-y-1/2 z-10 bg-white hover:bg-gray-300 p-2 shadow-md rounded-full"
+        className="absolute cursor-pointer left-0 top-[147px] lg:top-[242px] md:top-[226px] sm:top-[202px] -translate-y-1/2 z-10 bg-white hover:bg-gray-300 p-2 shadow-md rounded-full"
       >
         <ChevronLeft className="w-6 h-6 text-gray-700" />
       </button>
 
-      {/* Слайдер */}
-      <CategoryPage
-        index={index}
-        categories={categories}
-      />
+      <CategoryPage index={index} categories={categories} direction={direction} />
 
-      {/* Кнопка Вправо */}
       <button
         onClick={next}
-        className="absolute cursor-pointer right-0 top-[242px] -translate-y-1/2 z-10 bg-white hover:bg-gray-300 p-2 shadow-md rounded-full"
+        className="absolute cursor-pointer right-0 top-[147px] lg:top-[242px] md:top-[226px] sm:top-[202px] -translate-y-1/2 z-10 bg-white hover:bg-gray-300 p-2 shadow-md rounded-full"
       >
         <ChevronRight className="w-6 h-6 text-gray-700" />
       </button>

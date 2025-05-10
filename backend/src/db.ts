@@ -1,20 +1,24 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-// Загружаем переменные из .env
-dotenv.config();
+dotenv.config(); // Загружаем переменные окружения из .env файла
+
+const MONGO_URI = process.env.MONGO_URI || ''; // Читаем строку подключения из .env файла
+
+if (!MONGO_URI) {
+  console.error('MONGO_URI не задан в .env файле!');
+  process.exit(1);  // Прерываем выполнение, если строка подключения не найдена
+}
 
 const connectDB = async () => {
   try {
-    // Используем строку подключения из .env
-    const dbURI = process.env.MONGO_URI;
-    await mongoose.connect(dbURI);  // Убираем параметры useNewUrlParser и useUnifiedTopology
-    console.log("MongoDB connected successfully");
+    // Просто передаем строку подключения без дополнительных параметров
+    await mongoose.connect(MONGO_URI);
+    console.log('✅ Connected to MongoDB');
   } catch (error) {
-    console.error("Error connecting to MongoDB", error);
-    process.exit(1);
+    console.error('❌ Error connecting to MongoDB:', error);
+    process.exit(1);  // Прерываем выполнение при ошибке подключения
   }
 };
 
 export default connectDB;
-

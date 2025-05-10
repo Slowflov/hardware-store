@@ -15,37 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 const cors_1 = __importDefault(require("cors"));
-const mongoose_1 = __importDefault(require("mongoose"));
+const db_1 = __importDefault(require("./db")); // Импортируем подключение к базе данных
 const schema_1 = __importDefault(require("./graphql/schema"));
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
 const PORT = process.env.PORT || 5000;
-// Подключение к базе данных MongoDB
-const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        // Просто подключаемся без лишних параметров
-        yield mongoose_1.default.connect('mongodb://localhost:27017/hardware-store');
-        console.log('MongoDB connected successfully');
-    }
-    catch (error) {
-        console.error('MongoDB connection error:', error);
-        process.exit(1); // Завершаем процесс, если не удалось подключиться
-    }
-});
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
         app.use((0, cors_1.default)());
         // Подключаемся к базе данных
-        yield connectDB();
+        yield (0, db_1.default)();
         // Создание экземпляра ApolloServer
         const server = new apollo_server_express_1.ApolloServer({
             typeDefs: schema_1.default,
             resolvers: resolvers_1.default,
         });
-        // Стартуем сервер
+        // Стартуем 
         yield server.start();
         server.applyMiddleware({ app, path: '/graphql' });
-        // Запуск Express сервера
+        // Запуск Expres
         app.listen(PORT, () => {
             console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
         });

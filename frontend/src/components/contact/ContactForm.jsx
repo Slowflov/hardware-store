@@ -68,7 +68,7 @@ const ContactForm = ({ isMobile }) => {
             autoFocus
           />
           {!isValid && (
-            <p className="text-red-500 text-sm mt-2">Номер телефона должен содержать 9 цифр.</p>
+            <p className="text-red-500 text-sm mt-2">Номер телефона должен содержать 12 цифр.</p>
           )}
           {isSent && (
             <p className="text-green-600 text-sm mt-2">Отправлен!</p>

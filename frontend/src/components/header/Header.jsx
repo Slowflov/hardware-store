@@ -20,7 +20,9 @@ import OsbPage from "../catalog/osb/OsbPage.jsx";
 import Profile from "../catalog/profil/ProfilePage";
 import Primer from "../catalog/primer/PrimerPage";
 import Cement from "../catalog/cement/CementPage.jsx";
-
+import Drywall from "../catalog/drywall/DrywallPage";
+import Gypsum from "../catalog/gypsum/GypsumPage.jsx";
+import Putty from "../catalog/putty/PuttyPage";
 
 const Header = () => {
   return (
@@ -41,6 +43,9 @@ const Header = () => {
         <Route path="/category/profil" element={<Profile />} />
         <Route path="/category/primer" element={<Primer />} />
         <Route path="/category/cement" element={<Cement />} />
+        <Route path="/category/drywall" element={<Drywall />} />
+        <Route path="/category/gypsum" element={<Gypsum />} />
+        <Route path="/category/putty" element={<Putty />} />
 
           <Route
             path="/*"
