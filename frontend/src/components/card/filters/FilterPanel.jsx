@@ -31,14 +31,14 @@ const FilterPanel = ({ category, products, onFilterChange }) => {
 
   const allProducts = allData?.getProducts?.products || [];
 
-  const typeCounts = allProducts.reduce((acc, product) => {
-    const rawType = product?.type;
-    if (typeof rawType === "string") {
-      const productType = rawType.trim().toLowerCase();
-      acc[productType] = (acc[productType] || 0) + 1;
-    }
-    return acc;
-  }, {});
+const typeCounts = products.reduce((acc, product) => {
+  const rawType = product?.type;
+  if (typeof rawType === "string") {
+    const productType = rawType.trim().toLowerCase();
+    acc[productType] = (acc[productType] || 0) + 1;
+  }
+  return acc;
+}, {});
 
   useEffect(() => {
     console.log("Category changed, resetting filters");
