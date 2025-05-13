@@ -11,7 +11,7 @@ const ProductCard = ({
   newPrice,
   availability,
   code,
-  quantity,
+  discountThreshold,
   customPrice,
   productId,
   category,
@@ -47,10 +47,10 @@ const ProductCard = ({
 
         <div
           className={`mt-auto mb-2 text-sm text-gray-500 max-[639px]:text-xs only-sm:text-sm sm:text-sm ${
-            quantity && customPrice ? "" : "invisible"
+            discountThreshold && customPrice ? "" : "invisible"
           }`}
         >
-          от {quantity} шт —{" "}
+          от {discountThreshold} шт —{" "}
           <span className="text-lg text-red-600 font-bold pl-1 max-[639px]:text-sm only-sm:text-base sm:text-base">
             {customPrice && formatPrice(customPrice)} грн
           </span>

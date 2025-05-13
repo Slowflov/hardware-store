@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import CartSection from "../cart/CartPage";
 
 const ProductDetails = ({ product }) => {
-  const [quantity, setQuantity] = useState(1);
   // Разделяем детали товара на два блока (по 2 строки в каждом)
   const leftDetails = product.details?.slice(0, Math.ceil(product.details.length / 2)) || [];
   const rightDetails = product.details?.slice(Math.ceil(product.details.length / 2)) || [];
@@ -42,9 +42,9 @@ const ProductDetails = ({ product }) => {
             ))}
           </ul>
 
-          {(product.quantity && product.customPrice) && (
+          {(product.discountThreshold && product.customPrice) && (
             <p className="text-black text-base">
-              При покупке от <span className="text-black text-xl font-bold">{product.quantity}</span> шт, цена - <span className="text-red-500 text-2xl font-bold">{product.customPrice} грн.</span>
+              При покупке от <span className="text-black text-xl font-bold">{product.discountThreshold}</span> шт, цена - <span className="text-red-500 text-2xl font-bold">{product.customPrice} грн.</span>
             </p>
           )}
 
@@ -56,20 +56,7 @@ const ProductDetails = ({ product }) => {
           <p className="text-2xl tracking-wider text-gray-600 line-through-thin inline-block -mb-5">{product.oldPrice}</p>
           <p className="text-5xl tracking-wide font-medium inline-block">{product.newPrice}</p>
 
-          <div className="flex items-center space-x-4">
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="w-16 p-2 text-center border border-gray-300 rounded-md"
-            />
-            <Link to="/cart">
-              <button className="flex items-center bg-yellow-500 text-black font-bold text-lg py-4 px-3 sm:px-10 rounded-md hover:bg-yellow-400 cursor-pointer">
-                <span>В корзину</span>
-              </button>
-            </Link>
-          </div>
+          <CartSection product={product} />
         </div>
       </div>
 

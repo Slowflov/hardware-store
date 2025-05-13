@@ -12,7 +12,7 @@ const getSortOptions = (sortBy) => {
     else if (sortBy === "discount") {
         return {
             customPrice: -1,
-            quantity: -1
+            discountThreshold: -1
         };
     }
     else if (sortBy === "latest") {

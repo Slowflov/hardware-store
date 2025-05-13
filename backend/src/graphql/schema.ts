@@ -33,7 +33,7 @@ const typeDefs = gql`
     newPrice: Float
     availability: String
     code: String
-    quantity: Int
+    discountThreshold: Int
     customPrice: Float
     type: String
     category: String
@@ -74,7 +74,7 @@ const typeDefs = gql`
       newPrice: Float
       availability: String
       code: String
-      quantity: Int
+      discountThreshold: Int
       inventoryCount: Int
       customPrice: Float
       type: String

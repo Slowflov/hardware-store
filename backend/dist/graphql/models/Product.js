@@ -12,7 +12,7 @@ const productSchema = new mongoose_1.default.Schema({
     newPrice: { type: Number, index: true },
     availability: { type: String },
     code: { type: String, index: true },
-    quantity: { type: Number },
+    discountThreshold: { type: Number },
     inventoryCount: { type: Number },
     customPrice: { type: Number },
     type: { type: String },

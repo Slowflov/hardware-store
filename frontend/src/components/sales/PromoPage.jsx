@@ -98,7 +98,7 @@ const PromoPage = () => {
                 newPrice={product.newPrice}
                 availability={product.availability}
                 code={product.code}
-                quantity={product.quantity}
+                discountThreshold={product.discountThreshold}
                 customPrice={product.customPrice}
               />
             ))

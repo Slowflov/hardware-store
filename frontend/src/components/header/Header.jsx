@@ -23,6 +23,8 @@ import Cement from "../catalog/cement/CementPage.jsx";
 import Drywall from "../catalog/drywall/DrywallPage";
 import Gypsum from "../catalog/gypsum/GypsumPage.jsx";
 import Putty from "../catalog/putty/PuttyPage";
+import Roofing from "../catalog/roofing/RoofingPage.jsx";
+import Adhesives from "../catalog/adhesives/AdhesivesPage.jsx";
 
 const Header = () => {
   return (
@@ -46,6 +48,8 @@ const Header = () => {
         <Route path="/category/drywall" element={<Drywall />} />
         <Route path="/category/gypsum" element={<Gypsum />} />
         <Route path="/category/putty" element={<Putty />} />
+        <Route path="/category/roofing" element={<Roofing />} />
+        <Route path="/category/adhesives" element={<Adhesives />} />
 
           <Route
             path="/*"

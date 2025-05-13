@@ -10,7 +10,7 @@ const GET_PRODUCT_BY_ID = gql`
       img
       code
       category
-      quantity
+      discountThreshold
       customPrice
       availability
       inventoryCount

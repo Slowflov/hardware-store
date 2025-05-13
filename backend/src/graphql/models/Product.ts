@@ -24,7 +24,7 @@ export interface ProductType extends Document {
   newPrice?: number;
   availability?: string;
   code?: string;
-  quantity?: number;
+  discountThreshold?: number;
   inventoryCount?: number;
   customPrice?: number;
   type?: string;
@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema<ProductType>({
   newPrice: { type: Number, index: true },
   availability: { type: String },
   code: { type: String, index: true },
-  quantity: { type: Number },
+  discountThreshold: { type: Number },
   inventoryCount: { type: Number },
   customPrice: { type: Number },
   type: { type: String },

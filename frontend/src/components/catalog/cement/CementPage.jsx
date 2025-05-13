@@ -15,7 +15,7 @@ const GET_PRODUCTS = gql`
         newPrice
         availability
         code
-        quantity
+        discountThreshold
         customPrice
         type
       }

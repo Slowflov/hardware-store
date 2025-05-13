@@ -8,7 +8,7 @@ interface AddProductArgs {
   newPrice?: number;
   availability?: string;
   code?: string;
-  quantity?: number;
+  discountThreshold?: number;
   inventoryCount?: number;
   customPrice?: number;
   type?: string;
@@ -47,7 +47,7 @@ const productMutationResolvers = {
           newPrice: newProduct.newPrice,
           availability: newProduct.availability,
           code: newProduct.code,
-          quantity: newProduct.quantity,
+          discountThreshold: newProduct.discountThreshold,
           inventoryCount: newProduct.inventoryCount,
           customPrice: newProduct.customPrice,
           type: newProduct.type,

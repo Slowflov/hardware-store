@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logoViber from '../../assets/images/logo/viber.png';
 import { ShoppingCart } from "lucide-react";
-import logo from './../../assets/images/logo/repair_logo.png'
+import logo from './../../assets/images/logo/repair_logo.png';
 import { FaPhone } from 'react-icons/fa';
 import CartPanel from '../cart/CartPanel.jsx';
 
@@ -44,7 +44,7 @@ const NavPanel = () => {
           </div>
 
           {/* Контактные данные и кнопка заказа звонка */}
-          <div className=" flex-col-reverse lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 flex-grow justify-end md:ml-[33px] md:block hidden lg:flex">
+          <div className="flex-col-reverse lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 flex-grow justify-end md:ml-[33px] md:block hidden lg:flex">
             <div className="flex flex-col items-center md:items-start pr-4 space-y-1">
               <p className="text-sm text-black md:text-xs lg:text-sm whitespace-nowrap">
                 +38 (050) 532-71-18
@@ -56,6 +56,13 @@ const NavPanel = () => {
             </div>
             <button className="bg-yellow-500 hover:bg-yellow-400 text-gray-100 px-4 py-2 rounded-md cursor-pointer md:text-xs md:px-3 md:py-1.5 lg:text-sm lg:px-4 lg:py-2 mr-4">
               Заказать звонок
+            </button>
+          </div>
+
+          {/* Мобильная кнопка телефона */}
+          <div className="md:hidden flex items-center justify-end space-x-4">
+            <button className="flex items-center text-lg font-bold cursor-pointer py-[0px] px-[15px] rounded-md hover:bg-gray-200">
+              <FaPhone className="w-6 h-6 text-gray-400" />
             </button>
           </div>
 
