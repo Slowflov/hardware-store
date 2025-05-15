@@ -16,7 +16,7 @@ const NavPanel = () => {
       </section>
 
       <header className="bg-white py-[35px] px-4">
-        <div className="container mx-auto flex justify-end items-center">
+        <div className="mx-auto flex justify-end items-center px-1 lg:px-10 xs:px-10">
           {/* Логотип и описание */}
           <Link to="/" className="items-center inline-flex cursor-pointer">
             <img
@@ -33,18 +33,16 @@ const NavPanel = () => {
               </p>
             </div>
           </Link>
-
           {/* Поисковая панель */}
-          <div className="flex items-center flex-grow justify-center ml-0 lg:ml-10 sm:ml-2 md:ml-4">
-            <input
-              type="search"
-              placeholder="Поиск товаров..."
-              className="p-2 rounded-l-md w-full max-w-[400px] border-1 border-yellow-500 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 text-gray-500"
-            />
-          </div>
-
+<div className="flex items-center flex-grow justify-center ml-0 lg:ml-3 sm:ml-2 md:ml-4">
+  <input
+    type="search"
+    placeholder="Поиск товаров..."
+    className="p-2 rounded-l-md w-full max-w-[400px] border border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 text-gray-500"
+  />
+</div>
           {/* Контактные данные и кнопка заказа звонка */}
-          <div className="flex-col-reverse lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 flex-grow justify-end md:ml-[33px] md:block hidden lg:flex">
+          <div className="flex-col-reverse lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-4 justify-end md:ml-[15px] md:block hidden lg:flex">
             <div className="flex flex-col items-center md:items-start pr-4 space-y-1">
               <p className="text-sm text-black md:text-xs lg:text-sm whitespace-nowrap">
                 +38 (050) 532-71-18
@@ -54,7 +52,7 @@ const NavPanel = () => {
                 +7 485 337 2306
               </p>
             </div>
-            <button className="bg-yellow-500 hover:bg-yellow-400 text-gray-100 px-4 py-2 rounded-md cursor-pointer md:text-xs md:px-3 md:py-1.5 lg:text-sm lg:px-4 lg:py-2 mr-4">
+            <button className="bg-yellow-500 hover:bg-yellow-400 text-gray-100 px-4 py-2 rounded-md cursor-pointer md:text-xs md:px-3 md:py-1.5 lg:text-sm lg:px-4 lg:py-2">
               Заказать звонок
             </button>
           </div>

@@ -6,7 +6,7 @@ const MainSections = () => {
   <div className="container mx-auto flex">
     {/* Кнопка Каталог с 3 черными линиями слева */}
     <Link to="/catalog">
-      <button className="flex items-center bg-yellow-500 text-black font-bold text-lg py-4 px-3 sm:px-10 rounded-md hover:bg-yellow-400 cursor-pointer ml-12 -mt-3">
+      <button className="flex items-center bg-yellow-500 text-black font-bold text-lg py-4 px-3 sm:px-10 rounded-md hover:bg-yellow-400 cursor-pointer ml-5 sm:ml-2 -mt-3">
         {/* 3 черные линии внутри кнопки */}
         <div className="flex flex-col space-y-1 ml-[2px] sm:ml-0 sm:mr-2">
           <div className="w-3 h-0.5 bg-black"></div>

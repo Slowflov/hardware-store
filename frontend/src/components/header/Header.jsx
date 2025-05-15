@@ -13,7 +13,7 @@ import Promo from "../sales/PromoPage";
 import RetExEnch from "../pages/ReturnExchange.jsx";
 import LocationInfo from "../contact/LocationInfo.jsx";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
-import ProductPage from "../card/ProductPage";
+import ProductPage from "../card/Page/ProductPage";
 
 import Paint from "../catalog/paint/PaintPage.jsx";
 import OsbPage from "../catalog/osb/OsbPage.jsx";

@@ -64,12 +64,12 @@ const CartItem = ({ item, removeFromCart, increaseQuantity, decreaseQuantity }) 
       </div>
 
       {/* Удалить */}
-      <button
-        onClick={() => removeFromCart(item.id)}
-        className="ml-4 text-red-500 text-xl font-bold hover:text-red-700"
-      >
-        ×
-      </button>
+<button
+  onClick={() => removeFromCart(item.id)}
+  className="ml-4 w-7 h-7 pb-1 flex items-center justify-center bg-gray-200 text-gray-400 text-xl font-bold rounded-sm hover:text-gray-600"
+>
+  ×
+</button>
     </div>
   );
 };
