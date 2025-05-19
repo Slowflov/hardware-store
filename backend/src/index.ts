@@ -2,7 +2,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import connectDB from './db';  // Импортируем подключение к базе данных
+import connectDB from './db';
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
 

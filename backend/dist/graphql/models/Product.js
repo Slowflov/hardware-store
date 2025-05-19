@@ -26,7 +26,7 @@ const productSchema = new mongoose_1.default.Schema({
         {
             title: String,
             content: String,
-            horizontal: { type: Boolean, default: false }, // Добавлено поле horizontal, с дефолтным значением false
+            horizontal: { type: Boolean, default: false },
         },
     ],
     details: [

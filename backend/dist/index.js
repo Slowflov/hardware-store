@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 const cors_1 = __importDefault(require("cors"));
-const db_1 = __importDefault(require("./db")); // Импортируем подключение к базе данных
+const db_1 = __importDefault(require("./db"));
 const schema_1 = __importDefault(require("./graphql/schema"));
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
 const PORT = process.env.PORT || 5000;
