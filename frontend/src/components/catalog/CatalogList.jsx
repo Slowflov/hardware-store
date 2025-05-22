@@ -27,7 +27,7 @@ const categories = [
     { id: 2, name: "Шпаклевка", img: catalog2, link: "/category/putty" },
     { id: 3, name: "Гипсокартон", img: catalog3, link: "/category/drywall" },
     { id: 4, name: "Цемент", img: catalog4, link: "/category/cement" },
-    { id: 5, name: "Профиль", img: catalog5, link: "/category/profil" },
+    { id: 5, name: "Профиль", img: catalog5, link: "/category/profile" },
     { id: 6, name: "Грунтовка", img: catalog6, link: "/category/primer" },
     { id: 7, name: "Кровельные материалы", img: catalog7, link: "/category/roofing" },
     { id: 8, name: "Утеплитель", img: catalog8, link: "/category/insulation" },

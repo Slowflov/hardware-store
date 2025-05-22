@@ -16,7 +16,7 @@ export const priceRanges = {
     insulation: [0, 1200],
     gypsum: [0, 600],
     adhesives: [0, 3100],
-    floorMixes: [0, 500],
+    floormixes: [0, 500],
   };
   
   export const typeFilters = {

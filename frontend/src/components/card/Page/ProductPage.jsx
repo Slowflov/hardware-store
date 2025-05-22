@@ -1,7 +1,9 @@
+// ProductPage.jsx
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import ProductDetails from "./ProductDetails";
+import categoryTitles from "./PageData";
 
 const GET_PRODUCT_BY_ID = gql`
   query GetProductById($id: ID!) {
@@ -44,7 +46,16 @@ const ProductPage = () => {
   if (error) return <p>Ошибка: {error.message}</p>;
   if (!data?.getProductById) return <p>Товар не найден.</p>;
 
-  return <ProductDetails product={data.getProductById} />;
+  const product = data.getProductById;
+  const categoryTitle = categoryTitles[product.category] || "Категория";
+
+  return (
+    <ProductDetails
+      product={product}
+      title={categoryTitle}
+      category={product.category}
+    />
+  );
 };
 
 export default ProductPage;

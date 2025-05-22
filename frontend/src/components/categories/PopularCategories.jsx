@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import CategoryPage from "./CategoryPage";
 import cat1 from "../../assets/images/category/cat_1.png";
@@ -32,8 +32,26 @@ const categories = [
 const PopularCategories = () => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState("right");
+  const [itemsPerPage, setItemsPerPage] = useState(window.innerWidth < 640 ? 4 : 6);
 
-  const pageCount = Math.ceil(categories.length / 6);
+  const updateItemsPerPage = () => {
+    const newCount = window.innerWidth < 640 ? 4 : 6;
+    setItemsPerPage(newCount);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
+
+  useEffect(() => {
+    const pageCount = Math.ceil(categories.length / itemsPerPage);
+    if (index >= pageCount) {
+      setIndex(pageCount - 1);
+    }
+  }, [itemsPerPage]);
+
+  const pageCount = Math.ceil(categories.length / itemsPerPage);
 
   const next = () => {
     setDirection("right");
@@ -56,7 +74,7 @@ const PopularCategories = () => {
         <ChevronLeft className="w-6 h-6 text-gray-700" />
       </button>
 
-      <CategoryPage index={index} categories={categories} direction={direction} />
+      <CategoryPage index={index} categories={categories} direction={direction} itemsPerPage={itemsPerPage} />
 
       <button
         onClick={next}

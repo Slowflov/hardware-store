@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const CategoryPage = ({ index, categories, direction }) => {
-  const pageCount = Math.ceil(categories.length / 6);
-
+const CategoryPage = ({ index, categories, direction, itemsPerPage }) => {
   const variants = {
     enter: (dir) => ({
       x: dir === "left" ? "-100%" : "100%",
@@ -31,9 +29,9 @@ const CategoryPage = ({ index, categories, direction }) => {
         variants={variants}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
-        <div className="w-full grid grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
           {categories
-            .slice(index * 6, (index + 1) * 6)
+            .slice(index * itemsPerPage, (index + 1) * itemsPerPage)
             .map((cat) => (
               <Link
                 key={cat.id}
@@ -43,7 +41,7 @@ const CategoryPage = ({ index, categories, direction }) => {
                 <img
                   src={cat.img}
                   alt={cat.name}
-                  className="w-12 lg:w-40 md:w-20 sm:w-20 h-10 lg:h-20 md:h-16 sm:h-12 object-cover mr-1 lg:mr-10 md:mr-3 sm:mr-0 max-sm:mr-0"
+                  className="w-12 sm:w-20 md:w-20 lg:w-40 h-10 lg:h-20 md:h-16 sm:h-12 object-cover mr-1 lg:mr-10 md:mr-3 sm:mr-0 max-sm:mr-0"
                 />
                 <div className="font-bold text-xs lg:text-xl md:text-lg sm:text-sm">
                   {cat.name}

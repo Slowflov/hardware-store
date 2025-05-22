@@ -24,8 +24,8 @@ const GET_PRODUCTS = gql`
   }
 `;
 
-const AdhesivesPage = () => {
-  const category = "adhesives";
+const PlywoodPage = () => {
+  const category = "plywood";
   const [currentPage, setCurrentPage] = useSessionStorage(`${category}_currentPage`, 1);
   const [sortType, setSortType] = useSessionStorage(`${category}_sortType`, "latest");
   const [filters, setFilters] = useSessionStorage(`${category}_filters`, {
@@ -46,7 +46,7 @@ const AdhesivesPage = () => {
 
   return (
     <PageLayout
-      title="Строительный и монтажный клей"
+      title="ДВП и Фанера"
       category={category}
       data={data}
       loading={loading}
@@ -63,4 +63,4 @@ const AdhesivesPage = () => {
   );
 };
 
-export default AdhesivesPage;
+export default PlywoodPage;

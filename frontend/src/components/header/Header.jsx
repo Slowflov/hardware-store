@@ -25,6 +25,10 @@ import Gypsum from "../catalog/gypsum/GypsumPage.jsx";
 import Putty from "../catalog/putty/PuttyPage";
 import Roofing from "../catalog/roofing/RoofingPage.jsx";
 import Adhesives from "../catalog/adhesives/AdhesivesPage.jsx";
+import FloorMixesPage from "../catalog/floormixes/FloorMixesPage";
+import Foam from "../catalog/foam/FoamPage.jsx";
+import Plywood from "../catalog/plywood/PlywoodPage.jsx";
+import Insulation from "../catalog/insulation/InsulationPage.jsx";
 
 const Header = () => {
   return (
@@ -42,7 +46,7 @@ const Header = () => {
 
         <Route path="/category/paint" element={<Paint />} />
         <Route path="/category/osb" element={<OsbPage />} />
-        <Route path="/category/profil" element={<Profile />} />
+        <Route path="/category/profile" element={<Profile />} />
         <Route path="/category/primer" element={<Primer />} />
         <Route path="/category/cement" element={<Cement />} />
         <Route path="/category/drywall" element={<Drywall />} />
@@ -50,6 +54,10 @@ const Header = () => {
         <Route path="/category/putty" element={<Putty />} />
         <Route path="/category/roofing" element={<Roofing />} />
         <Route path="/category/adhesives" element={<Adhesives />} />
+        <Route path="/category/floormixes" element={<FloorMixesPage />} />
+        <Route path="/category/foam" element={<Foam />} />
+        <Route path="/category/plywood" element={<Plywood />} />
+        <Route path="/category/insulation" element={<Insulation />} />
 
           <Route
             path="/*"

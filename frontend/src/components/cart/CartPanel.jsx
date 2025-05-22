@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import CartModal from "./modal window/CartModal.jsx";
 import { useCart } from "../cart/CartContext.jsx"; 
+
 const CartPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { items } = useCart();
@@ -12,6 +13,7 @@ const CartPanel = () => {
 
   return (
     <>
+      {/* Десктопная корзина */}
       <div className="items-center space-x-4 justify-end md:block hidden">
         <button
           onClick={toggleModal}
@@ -27,12 +29,18 @@ const CartPanel = () => {
         </button>
       </div>
 
-      <div className="md:hidden flex items-center justify-end space-x-4">
+      {/* Мобильная корзина */}
+      <div className="md:hidden flex items-center justify-end space-x-4 relative">
         <button
           onClick={toggleModal}
-          className="flex items-center text-lg font-bold cursor-pointer py-[0px] px-[15px] rounded-md hover:bg-gray-200"
+          className="flex items-center text-lg font-bold cursor-pointer py-[0px] px-[15px] rounded-md hover:bg-gray-200 relative"
         >
           <ShoppingCart className="w-6 h-6 text-gray-400" />
+          {totalItems > 0 && (
+            <span className="absolute -top-3 -right-[-17px] bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+              {totalItems}
+            </span>
+          )}
         </button>
       </div>
 
@@ -42,3 +50,4 @@ const CartPanel = () => {
 };
 
 export default CartPanel;
+

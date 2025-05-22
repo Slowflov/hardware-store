@@ -39,8 +39,8 @@ const CheckoutPanel = ({ totalPrice }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg max-w-[85%] z-50 p-6 overflow-y-auto mt-20 ml-3">
-      <h2 className="text-2xl font-semibold mb-2">Оформление заказа</h2>
+    <div className="bg-white shadow-lg max-w-[100%] sm:max-w-[97%] lg:max-w-[85%] z-50 p-3 md:p-6 overflow-y-auto mt-4 sm:mt-20 ml-1 lg:ml-3">
+      <h2 className="text-sm sm:text-2xl font-semibold mb-2">Оформление заказа</h2>
       {isSent && (
         <p className="text-green-600 font-medium mb-4">
           Заказ оформлен. Мы свяжемся с вами в ближайшее время.
@@ -58,14 +58,14 @@ const CheckoutPanel = ({ totalPrice }) => {
         isSent={isSent}
       />
 
-      <div className="flex justify-between items-center border-t pt-4 mb-4">
-        <span className="text-lg font-medium">Итог :</span>
-        <span className="text-lg font-semibold text-gray-800">{totalPrice} грн</span>
+      <div className="flex justify-between items-center border-t pt-2 sm:pt-4 mb-2 sm:mb-4">
+        <span className="text-base sm:text-lg font-medium">Итог :</span>
+        <span className="text-sm sm:text-lg font-semibold text-gray-800">{totalPrice} грн</span>
       </div>
 
       <button
         onClick={handleOrder}
-        className="w-full bg-yellow-500 hover:bg-yellow-400 text-white font-semibold py-3 rounded-md transition duration-200"
+        className="w-full bg-yellow-500 hover:bg-yellow-400 text-white font-semibold py-1 sm:py-3 rounded-md transition duration-200"
       >
         Заказать
       </button>
